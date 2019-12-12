@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AoC.Helpers\AoC.Helpers.csproj" />
+    <ProjectReference Include="..\AoC.Y2018\AoC.Y2018.csproj" />
+    <ProjectReference Include="..\AoC.Y2019\AoC.Y2019.csproj" />
+  </ItemGroup>
+
+</Project>
