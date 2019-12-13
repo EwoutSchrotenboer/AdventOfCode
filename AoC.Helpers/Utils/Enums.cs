@@ -47,4 +47,14 @@ namespace AoC.Helpers.Utils
         Left,
         Right
     }
+
+    public enum TileType
+    {
+        Empty,
+        Wall,
+        Block,
+        Paddle,
+        Ball,
+        Score
+    }
 }

@@ -19,23 +19,19 @@ namespace AoC.Helpers.IntComputer
 
         private long relativeBase = 0;
 
-        public Computer(string program) : this(program, new List<long>(), new Dictionary<long, long>()) { }
-        public Computer(string program, long value) : this(program, new List<long>() { value }, new Dictionary<long, long>()) { } 
-        public Computer(string program, List<long> inputs) : this (program, inputs, new Dictionary<long, long>()) { }
-        public Computer(string program, Dictionary<long, long> manualAddresses) : this(program, new List<long>(), manualAddresses) { }
-        public Computer(string program, List<long> inputs, Dictionary<long, long> manualAddresses)
+        public Computer(string program) : this(program, new List<long>()) { }
+        public Computer(string program, long value) : this(program, new List<long>() { value }) { } 
+        public Computer(string program, List<long> inputs)
         {
             var parsedProgram = ParseProgram(program);
             memory = new long[8192];
             parsedProgram.CopyTo(memory, 0);
 
             inputQueue = new Queue<long>(inputs);
-
-            foreach (var manualAddress in manualAddresses)
-            {
-                memory[manualAddress.Key] = manualAddress.Value;
-            }
         }
+
+        public void SetAddress(long address, long value) => memory[address] = value;
+        public void ClearOutputs() => Outputs.Clear();
 
         public (List<State> states, List<long> outputs) Resume(long input)
         {

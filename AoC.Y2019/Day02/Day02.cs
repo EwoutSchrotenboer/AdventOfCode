@@ -18,13 +18,10 @@ namespace AoC.Y2019.Days
 
         protected override IConvertible PartOne()
         {
-            var addresses = new Dictionary<long, long>
-            {
-                { 1, 12 },
-                { 2, 2 }
-            };
+            var computer = new Computer(inputLines.First());
+            computer.SetAddress(1, 12);
+            computer.SetAddress(2, 2);
 
-            var computer = new Computer(inputLines.First(), addresses);
             var (states, _) = computer.Run();
 
             return states.Last().Memory[0];
@@ -36,13 +33,10 @@ namespace AoC.Y2019.Days
             {
                 for (int verb = 0; verb < 100; verb++)
                 {
-                    var addresses = new Dictionary<long, long>
-                    {
-                        { 1, noun },
-                        { 2, verb }
-                    };
+                    var computer = new Computer(inputLines.First());
+                    computer.SetAddress(1, noun);
+                    computer.SetAddress(2, verb);
 
-                    var computer = new Computer(inputLines.First(), addresses);
                     var (states, _) = computer.Run();
 
                     if (states.Last().Memory[0] == 19690720)
