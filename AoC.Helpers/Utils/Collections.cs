@@ -15,6 +15,19 @@ namespace AoC.Helpers.Utils
             );
         }
 
+        public static (int sizeX, int sizeY, int offsetX, int offsetY) GetSizesAndOffsets(this IEnumerable<Point> data)
+        {
+            var upperLeft = new Point(data.Select(p => p.X).Min(), data.Select(p => p.Y).Min());
+            var downRight = new Point(data.Select(p => p.X).Max(), data.Select(p => p.Y).Max());
+
+            var offsetX = Math.Abs(upperLeft.X);
+            var offsetY = Math.Abs(upperLeft.Y);
+            var sizeX = downRight.X + offsetX;
+            var sizeY = downRight.Y + offsetY;
+
+            return (sizeX, sizeY, offsetX, offsetY);
+        }
+
         public static TValue GetOrCreate<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key)
                     where TValue : new()
         {
