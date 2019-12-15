@@ -32,7 +32,7 @@ namespace AoC.Y2019.Tests.Days
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(13581, result);
+            Assert.AreEqual((long)13581, result);
         }
     }
 }

@@ -43,7 +43,7 @@ namespace AoC.Y2019.Tests.Days
             // Assert
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(40, result);
+            Assert.AreEqual(30, result);
         }
 
         [TestMethod]

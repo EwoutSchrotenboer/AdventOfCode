@@ -10,17 +10,6 @@ namespace AoC.Y2019.Days
 {
     public class Day15 : BaseDay
     {
-        private readonly Dictionary<Point, long> visited = new Dictionary<Point, long>();
-        private Computer computer;
-
-        private long[,] maze;
-        private long[,] oxygenated;
-        private bool[,] seen;
-
-        private Point oxygenSystem;
-        private Point start;
-
-
         public Day15() : base(2019, 15)
         {
         }
@@ -31,103 +20,103 @@ namespace AoC.Y2019.Days
 
         protected override IConvertible PartOne()
         {
-            computer = new Computer(inputLines.First());
-            InitializeMaze(computer);
-            BreadthFirst(start);
-            return oxygenated[oxygenSystem.Y, oxygenSystem.X];
+            var computer = new Computer(inputLines.First());
+            var shipLocations = Initialize(computer);
+
+            var start = shipLocations.Single(l => l.Start);
+            var oxygenSystem = shipLocations.Single(l => l.OxygenSystem);
+
+            MapRoute(shipLocations, start);
+            return oxygenSystem.Scratch;
         }
 
         protected override IConvertible PartTwo()
         {
-            computer = new Computer(inputLines.First());
-            InitializeMaze(computer);
-            BreadthFirst(oxygenSystem);
-            return oxygenated.Cast<long>().Max();
+            var computer = new Computer(inputLines.First());
+            var shipLocations = Initialize(computer);
+
+            var oxygenSystem = shipLocations.Single(l => l.OxygenSystem);
+
+            MapRoute(shipLocations, oxygenSystem);
+            return shipLocations.Max(l => l.Scratch);
         }
 
-        private void BreadthFirst(Point startPoint)
+        private void MapRoute(List<ShipLocation> shipLocations, ShipLocation start)
         {
-            var pointsToExplore = new Stack<Point>();
+            var locationsLeft = new Stack<ShipLocation>();
+            locationsLeft.Push(start);
 
-            pointsToExplore.Push(startPoint);
-
-            while (pointsToExplore.Count > 0)
+            while (locationsLeft.Count > 0)
             {
-                var p = pointsToExplore.Pop();
+                var currentLocation = locationsLeft.Pop();
 
-                Point[] possiblePoints = new Point[] { p.Up(), p.Right(), p.Down(), p.Left() };
+                Point[] adjacentLocations = new Point[] { 
+                    currentLocation.Location.Up(), 
+                    currentLocation.Location.Down(), 
+                    currentLocation.Location.Right(), 
+                    currentLocation.Location.Left() 
+                };
 
-                foreach (var point in possiblePoints)
+                foreach (var adjacentLocation in adjacentLocations)
                 {
-                    if (maze[point.Y, point.X] != 0)
+                    var adjacent = shipLocations.Single(l => l.Location == adjacentLocation);
+                    if (adjacent.Type != ShipLocationType.Wall && adjacent.Visited != true) 
                     {
-                        if (seen[point.Y, point.X] == false)
-                        {
-                            oxygenated[point.Y, point.X] = oxygenated[p.Y, p.X] + 1;
-                            pointsToExplore.Push(point);
-                        }
+                        adjacent.Scratch = currentLocation.Scratch + 1;
+                        locationsLeft.Push(adjacent);
                     }
                 }
 
-                seen[p.Y, p.X] = true;
+                currentLocation.Visited = true;
             }
         }
 
-        private void InitializeMaze(Computer computer)
+        private List<ShipLocation> Initialize(Computer repairDroid)
         {
-            computer.Run();
-            var origin = new Point(0, 0);
-            start = origin;
+            repairDroid.Run();
 
-            Map(origin);
+            var origin = new ShipLocation(new Point(0, 0), ShipLocationType.Empty, true);
+            var shipLocations = new List<ShipLocation>() { origin };
 
-            var (sizeX, sizeY, offsetX, offsetY) = visited.Keys.GetSizesAndOffsets();
+            MapRoom(repairDroid, shipLocations, origin);
 
-            start = new Point(start.X + offsetX, this.start.Y + offsetY);
-            oxygenSystem = new Point(oxygenSystem.X + offsetX, oxygenSystem.Y + offsetY);
+            var (sizeX, sizeY, offsetX, offsetY) = shipLocations.Select(s => s.Location).GetSizesAndOffsets();
 
-            maze = new long[sizeY + 1, sizeX + 1];
-            oxygenated = new long[sizeY + 1, sizeX + 1];
-            seen = new bool[sizeY + 1, sizeX + 1];
-
-            foreach (var location in visited)
+            foreach (var location in shipLocations)
             {
-                maze[location.Key.Y + offsetY, location.Key.X + offsetX] = location.Value;
+                location.UpdateLocationOffset(offsetX, offsetY);
             }
+
+            return shipLocations;
         }
 
-        private void Map(Point origin)
+        private void MapRoom(Computer repairDroid, List<ShipLocation> shipLocations, ShipLocation origin)
         {
-            MapAdjacent(origin.Up(), RobotDirection.North, RobotDirection.South);
-            MapAdjacent(origin.Down(), RobotDirection.South, RobotDirection.North);
-            MapAdjacent(origin.Left(), RobotDirection.West, RobotDirection.East);
-            MapAdjacent(origin.Right(), RobotDirection.East, RobotDirection.West);
+            MapAdjacent(repairDroid, shipLocations, origin.Move(DroidDirection.North));
+            MapAdjacent(repairDroid, shipLocations, origin.Move(DroidDirection.South));
+            MapAdjacent(repairDroid, shipLocations, origin.Move(DroidDirection.West));
+            MapAdjacent(repairDroid, shipLocations, origin.Move(DroidDirection.East));
         }
 
-        private void MapAdjacent(Point destination, RobotDirection direction, RobotDirection oppositeDirection)
+        private void MapAdjacent(Computer repairDroid, List<ShipLocation> shipLocations, DroidMovement movement)
         {
-            if (!visited.ContainsKey(destination))
+
+            if (!shipLocations.Any(l => l.Location == movement.Destination))
             {
-                var destinationType = Move(direction);
-                visited.Add(destination, (long)destinationType);
+                var destinationType = Move(repairDroid, movement.Direction);
+                var destinationLocation = new ShipLocation(movement.Destination, destinationType);
+                shipLocations.Add(destinationLocation);
 
                 if (destinationType == ShipLocationType.Wall) { return; }
 
-                Map(destination);
-
-                if (destinationType == ShipLocationType.OxygenSystem)
-                {
-                    visited[destination] = (long)ShipLocationType.Empty;
-                    oxygenSystem = destination;
-                }
-
-                Move(oppositeDirection);
+                MapRoom(repairDroid, shipLocations, destinationLocation);
+                Move(repairDroid, movement.ReturnDirection);
             }
         }
 
-        private ShipLocationType Move(RobotDirection direction)
+        private ShipLocationType Move(Computer repairDroid, DroidDirection direction)
         {
-            var (_, outputs) = computer.Resume((int)direction);
+            var (_, outputs) = repairDroid.Resume((int)direction);
             return (ShipLocationType)outputs.Last();
         }
     }

@@ -68,7 +68,7 @@ namespace AoC.Y2019.Days
                 imageLines.Add(sb.ToString());
             }
 
-            Console.WriteLine("Y2019 Day 08 Part Two visual:");
+            Console.WriteLine("Y2019 Day 8 Part Two visual:");
             foreach (var imageLine in imageLines)
             {
                 Console.WriteLine(imageLine);

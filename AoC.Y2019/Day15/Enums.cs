@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AoC.Y2019.Days
 {
-    public enum RobotDirection
+    public enum DroidDirection
     {
         North = 1,
         South,
