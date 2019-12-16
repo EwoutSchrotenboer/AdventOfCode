@@ -6,6 +6,8 @@ namespace AoC.Helpers.Utils
 {
     public static partial class Extensions
     {
+        public static IEnumerable<int> GetNumbers(this string input) => input.Select(s => int.Parse(s.ToString()));
+        
         public static IEnumerable<int> GetNumbers(this string input, char separator) => input.Split(separator, StringSplitOptions.RemoveEmptyEntries).Select(i => int.Parse(i));
 
         public static int GetPart(this string instruction, int skip, int take) => int.Parse(string.Concat(instruction.Skip(skip).Take(take)));
