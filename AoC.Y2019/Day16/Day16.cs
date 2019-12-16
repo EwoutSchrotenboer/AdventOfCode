@@ -21,47 +21,47 @@ namespace AoC.Y2019.Days
             var signal = ParseInput(inputLines).ToList();
             var output = ApplyFFT(signal, 100);
 
-            return string.Join("", output.Take(8));
+            return string.Join("", output);
         }
 
         protected override IConvertible PartTwo()
         {
             var signal = ParseInput(inputLines).ToList();
+            var offset = int.Parse(string.Join("", signal.Take(7)));
 
             var trueSignal = new List<int>();
-
             for (int i = 0; i < 10000; i++) { trueSignal.AddRange(signal); }
-            var output = ApplyOptimizedFFT(trueSignal, 100);
+
+            var output = ApplyOptimizedFFT(trueSignal, 100, offset);
 
             return string.Join("", output);
         }
 
-        private static List<int> ApplyFFT(List<int> signal, int phases)
+        private static IEnumerable<int> ApplyFFT(List<int> signal, int phases)
         {
             for (int phaseIndex = 0; phaseIndex < phases; phaseIndex++)
             {
                 signal = ApplyPhase(signal);
             }
 
-            return signal;
+            return signal.Take(8);
         }
 
-        private static List<int> ApplyOptimizedFFT(List<int> signal, int phases)
+        private static IEnumerable<int> ApplyOptimizedFFT(List<int> signal, int phases, int offset)
         {
-            var offset = int.Parse(string.Join("", signal.Take(7)));
-
             for (int phaseIndex = 0; phaseIndex < phases; phaseIndex++)
             {
-                signal = ApplyOptimizedPhase(signal);
+                signal = ApplyOptimizedPhase(signal, offset);
             }
 
-            return signal.Skip(offset).Take(8).ToList();
+            return signal.Skip(offset).Take(8);
         }
 
-        private static List<int> ApplyOptimizedPhase(List<int> signal)
+        private static List<int> ApplyOptimizedPhase(List<int> signal, int offset)
         {
-            // last value stays the same, so we can work backwards here
-            for (int sigIndex = signal.Count - 2; sigIndex > signal.Count / 2; sigIndex--)
+            // Last value stays the same throughout runs. All new values before that follow the pattern "old value + new next value % 10"
+            // We only need to calculate to the offset, to optimize. For part 1, that is 0.
+            for (int sigIndex = signal.Count - 2; sigIndex >= offset; sigIndex--)
             {
                 signal[sigIndex] = Math.Abs(signal[sigIndex] + signal[sigIndex + 1]) % 10;
             }
