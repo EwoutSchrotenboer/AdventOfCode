@@ -1,4 +1,5 @@
 ﻿using AoC.Helpers.Utils;
+using System;
 using System.Drawing;
 
 namespace AoC.Y2019.Days
@@ -30,7 +31,8 @@ namespace AoC.Y2019.Days
                 DroidDirection.North => new DroidMovement(Location.Up(), DroidDirection.North, DroidDirection.South),
                 DroidDirection.South => new DroidMovement(Location.Down(), DroidDirection.South, DroidDirection.North),
                 DroidDirection.West => new DroidMovement(Location.Left(), DroidDirection.West, DroidDirection.East),
-                DroidDirection.East => new DroidMovement(Location.Right(), DroidDirection.East, DroidDirection.West)
+                DroidDirection.East => new DroidMovement(Location.Right(), DroidDirection.East, DroidDirection.West),
+                _ => throw new Exception("Invalid direction.")
             };
 
         public void UpdateLocationOffset(int offsetX, int offsetY)
