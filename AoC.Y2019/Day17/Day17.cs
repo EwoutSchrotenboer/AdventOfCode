@@ -31,10 +31,7 @@ namespace AoC.Y2019.Days
 
             var rawMap = new string(outputs.Select(o => (char)o).ToArray());
             var map = GetMap(rawMap);
-
-            var score = GetAlignmentSum(map);
-
-            return score;
+            return GetAlignmentSum(map);
         }
 
         protected override IConvertible PartTwo()
