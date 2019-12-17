@@ -36,15 +36,7 @@ namespace AoC.Y2019.Days
 
         protected override IConvertible PartTwo()
         {
-            // manually analyzed the map, which resulted in the following route:
-            // R10,R8,L10,L10,R8,L6,L6,R8,L6,L6,R10,R8,L10,L10,L10,R10,L6,R8,L6,L6,L10,R10,L6,L10,R10,L6,R8,L6,L6,R10,R8,L10,L10
-
-            // Repeating patterns:
-            // 3x R10, R8, L10, L10 (A)
-            // 4x R8, L6, L6 (B)
-            // 3x L10, R10, L6 (C)
-            // A, B, B, A, C, B, C, C, B, A
-            var vacuumBot = new Computer(inputLines.First(), VacuumBotRoutine());
+            var vacuumBot = new Computer(inputLines.First(), ManualVacuumBotRoutine());
             vacuumBot.SetAddress(0, 2);
             var (_, outputs) = vacuumBot.Run();
             return outputs.Last();
@@ -82,20 +74,26 @@ namespace AoC.Y2019.Days
             return map;
         }
 
-        private static int[] VacuumBotRoutine()
+        private static IEnumerable<int> ManualVacuumBotRoutine()
         {
-            var main = mainRoutine;
-            var a = subroutineA;
-            var b = subroutineB;
-            var c = subroutineC;
+            // Manually analyzed the map, which resulted in the following route:
+            // R10,R8,L10,L10,R8,L6,L6,R8,L6,L6,R10,R8,L10,L10,L10,R10,L6,R8,L6,L6,L10,R10,L6,L10,R10,L6,R8,L6,L6,R10,R8,L10,L10
+            var concatenated = new List<int>();
 
-            var concatenated = new int[main.Length + a.Length + b.Length + c.Length + feed.Length];
-            main.CopyTo(concatenated, 0);
-            a.CopyTo(concatenated, main.Length);
-            b.CopyTo(concatenated, main.Length + a.Length);
-            c.CopyTo(concatenated, main.Length + a.Length + b.Length);
-            feed.CopyTo(concatenated, main.Length + a.Length + b.Length + c.Length);
+            // A, B, B, A, C, B, C, C, B, A
+            concatenated.AddRange(mainRoutine);
 
+            // R10, R8, L10, L10
+            concatenated.AddRange(subroutineA);
+
+            // R8, L6, L6
+            concatenated.AddRange(subroutineB);
+
+            // L10, R10, L6
+            concatenated.AddRange(subroutineC);
+
+            // Enable camera, Y/N
+            concatenated.AddRange(feed);
             return concatenated;
         }
     }

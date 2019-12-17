@@ -21,7 +21,7 @@ namespace AoC.Helpers.IntComputer
 
         public Computer(string program) : this(program, new List<long>()) { }
         public Computer(string program, long value) : this(program, new List<long>() { value }) { }
-        public Computer(string program, int[] values) : this(program, values.Select(v => (long)v)) { }
+        public Computer(string program, IEnumerable<int> inputs) : this(program, inputs.Select(v => (long)v)) { }
         public Computer(string program, IEnumerable<long> inputs)
         {
             var parsedProgram = ParseProgram(program);
