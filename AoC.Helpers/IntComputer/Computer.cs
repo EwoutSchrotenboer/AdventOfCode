@@ -20,8 +20,9 @@ namespace AoC.Helpers.IntComputer
         private long relativeBase = 0;
 
         public Computer(string program) : this(program, new List<long>()) { }
-        public Computer(string program, long value) : this(program, new List<long>() { value }) { } 
-        public Computer(string program, List<long> inputs)
+        public Computer(string program, long value) : this(program, new List<long>() { value }) { }
+        public Computer(string program, int[] values) : this(program, values.Select(v => (long)v)) { }
+        public Computer(string program, IEnumerable<long> inputs)
         {
             var parsedProgram = ParseProgram(program);
             memory = new long[8192];
@@ -33,9 +34,20 @@ namespace AoC.Helpers.IntComputer
         public void SetAddress(long address, long value) => memory[address] = value;
         public void ClearOutputs() => Outputs.Clear();
 
+        public (List<State> states, List<long> outputs) Resume(int input) => Resume((long)input);
         public (List<State> states, List<long> outputs) Resume(long input)
         {
             inputQueue.Enqueue(input);
+            return Run();
+        }
+
+        public (List<State> states, List<long> outputs) Resume(int[] inputs)
+        {
+            foreach (var input in inputs)
+            {
+                inputQueue.Enqueue(input);
+            }
+
             return Run();
         }
 
