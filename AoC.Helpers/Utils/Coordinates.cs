@@ -38,5 +38,24 @@ namespace AoC.Helpers.Utils
                 (Direction.Left, Turn.Right) => Direction.Up,
                 _ => throw new Exception($"invalid input ({turn})")
             };
+
+        public static Direction GetDirection(this char character) =>
+            character switch 
+            {
+                '^' => Direction.Up,
+                '>' => Direction.Right,
+                'v' => Direction.Down,
+                '<' => Direction.Left,
+                _ => throw new Exception("Could not determine direction.")
+            };
+
+        // Todo, refactor all methods to AoCPoint, for easier extensibility.
+        public static AoCPoint Up(this AoCPoint point) => new AoCPoint(point.X, point.Y - 1);
+
+        public static AoCPoint Left(this AoCPoint point) => new AoCPoint(point.X - 1, point.Y);
+
+        public static AoCPoint Right(this AoCPoint point) => new AoCPoint(point.X + 1, point.Y);
+
+        public static AoCPoint Down(this AoCPoint point) => new AoCPoint(point.X, point.Y + 1);
     }
 }

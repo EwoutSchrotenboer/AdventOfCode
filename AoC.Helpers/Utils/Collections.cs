@@ -57,10 +57,11 @@ namespace AoC.Helpers.Utils
         public static char[,] To2DCharArray(this IEnumerable<string> inputLines)
         {
             var lines = inputLines.ToList();
-            var result = new char[lines.First().Length, lines.Count()];
-            for (int y = 0; y < result.GetLength(1); y++)
+            var result = new char[lines.Count(), lines.First().Length];
+
+            for (int y = 0; y < result.GetLength(0); y++)
             {
-                for (int x = 0; x < result.GetLength(0); x++)
+                for (int x = 0; x < result.GetLength(1); x++)
                 {
                     result[y, x] = lines[y][x];
                 }
