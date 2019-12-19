@@ -31,7 +31,6 @@ namespace AoC.Y2019.Tests.Days
         [TestMethod]
         [DataRow(new string[] { "#######", "#a.#Cd#", "##@#@##", "#######", "##@#@##", "#cB#Ab#", "#######" }, 8)]
         [DataRow(new string[] { "###############", "#d.ABC.#.....a#", "######@#@######", "###############", "######@#@######", "#b.....#.....c#", "###############" }, 24)]
-        // [DataRow(new string[] { "#############", "#DcBa.#.GhKl#", "#.###@#@#I###", "#e#d#####j#k#", "###C#@#@###J#", "#fEbA.#.FgHi#", "#############" }, 32)]
         [DataRow(new string[] { "#############", "#g#f.D#..h#l#", "#F###e#E###.#", "#dCba@#@BcIJ#", "#############", "#nK.L@#@G...#", "#M###N#H###.#", "#o#m..#i#jk.#", "#############" }, 72)]
         public void PartTwoTest(string[] input, int expected)
         {

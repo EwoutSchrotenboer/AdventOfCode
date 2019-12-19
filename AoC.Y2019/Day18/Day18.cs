@@ -1,9 +1,7 @@
 ﻿using AoC.Helpers.Days;
-using AoC.Helpers.Graphs;
 using AoC.Helpers.Utils;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 
@@ -72,27 +70,22 @@ namespace AoC.Y2019.Days
             }
 
             var stateQueue = new Queue<VaultState>(new VaultState[] { new VaultState { Replicants = startingSquad, Keys = 0 } });
-
             var visited = new Dictionary<(ReplicantPositions, int), int>();
-
             var targetKeyAmount = 0;
 
-            for (var i = 0; i < keys.Count; ++i)
-            {
-                targetKeyAmount |= (int)Math.Pow(2, i);
-            }
+            // Set key target
+            for (var i = 0; i < keys.Count; ++i) { targetKeyAmount |= (int)Math.Pow(2, i); }
 
             while (stateQueue.Any())
             {
                 var currentState = stateQueue.Dequeue();
-
                 var value = (currentState.Replicants, currentState.Keys);
 
                 if (visited.TryGetValue(value, out var steps))
                 {
                     if (steps <= currentState.Steps) { continue; }
 
-                    // update with lower stepcount, performance-wise this helps (Thanks internet!). 
+                    // update with lower stepcount, performance-wise this helps (Thanks internet!)
                     visited[value] = currentState.Steps;
                 }
                 else
@@ -133,14 +126,9 @@ namespace AoC.Y2019.Days
             var keysInReach = new List<VaultKey>();
             var visitedPoints = new HashSet<AoCPoint>();
 
-            var points = new Queue<AoCPoint>();
-            points.Enqueue(source);
-
-            var stepsQueue = new Queue<int>();
-            stepsQueue.Enqueue(0);
-
-            var obstacles = new Queue<int>();
-            obstacles.Enqueue(0);
+            var points = new Queue<AoCPoint>(); points.Enqueue(source);
+            var stepsQueue = new Queue<int>(); stepsQueue.Enqueue(0);
+            var obstacles = new Queue<int>(); obstacles.Enqueue(0);
 
             while (points.Any())
             {
@@ -186,10 +174,7 @@ namespace AoC.Y2019.Days
 
             foreach (var possible in possibleAdjacents)
             {
-                if (accessible.Contains(possible))
-                {
-                    adjacents.Add(possible);
-                }
+                if (accessible.Contains(possible)) { adjacents.Add(possible); }
             }
 
             return adjacents;
@@ -198,55 +183,26 @@ namespace AoC.Y2019.Days
         private void ParseInput(List<string> inputLines, bool partTwo)
         {
             var characterCount = partTwo ? 1 : 0;
-            var newLines = new List<string>();
+            var verticalMiddle = inputLines.Count / 2;
+            var horizontalMiddle = inputLines.First().Length / 2;
 
-            if (partTwo)
+            for (int yPos = 0; yPos < inputLines.Count; yPos++)
             {
-                // update input for second part
-                var vm = inputLines.Count / 2;
-                var hm = inputLines.First().Length / 2;
-
-                if (inputLines.Count % 2 == 0 && inputLines.First().Length % 2 == 0)
+                for (int xPos = 0; xPos < inputLines.First().Count(); xPos++)
                 {
-                    vm += 1;
-                    hm += 1;
-                }
+                    var value = inputLines[yPos][xPos];
 
-                
-                for (int yPos = 0; yPos < inputLines.Count; yPos++)
-                {
-                    var sb = new StringBuilder();
-
-                    for (int xPos = 0; xPos < inputLines.First().Count(); xPos++)
+                    if (partTwo)
                     {
-                        if (yPos == vm || xPos == hm)
+                        if (yPos == verticalMiddle || xPos == horizontalMiddle) { value = '#'; }
+                        else if ((xPos == horizontalMiddle - 1 && yPos == verticalMiddle - 1)
+                            || (xPos == horizontalMiddle - 1 && yPos == verticalMiddle + 1)
+                            || (xPos == horizontalMiddle + 1 && yPos == verticalMiddle - 1)
+                            || (xPos == horizontalMiddle + 1 && yPos == verticalMiddle + 1))
                         {
-                            sb.Append('#');
-                        }
-                        else if ((xPos == hm - 1 && yPos == vm -1) 
-                            || (xPos == hm - 1 && yPos == vm + 1)
-                            || (xPos == hm + 1 && yPos == vm - 1)
-                            || (xPos == hm + 1 && yPos == vm + 1))
-                        {
-                            sb.Append('@');
-                        }
-                        else
-                        {
-                            sb.Append(inputLines[yPos][xPos]);
+                            value = '@';
                         }
                     }
-
-                    newLines.Add(sb.ToString());
-                }
-            }
-
-            var lines = partTwo ? newLines : inputLines;
-
-            for (int yPos = 0; yPos < lines.Count; yPos++)
-            {
-                for (int xPos = 0; xPos < lines.First().Count(); xPos++)
-                {
-                    var value = lines[yPos][xPos];
 
                     if (value != '#')
                     {

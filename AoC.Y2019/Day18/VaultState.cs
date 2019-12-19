@@ -10,9 +10,7 @@ namespace AoC.Y2019.Days
     internal class VaultState
     {
         public ReplicantPositions Replicants { get; set; }
-
         public int Keys { get; set; }
-
         public int Steps { get; set; }
     }
 }
