@@ -103,7 +103,7 @@ namespace AoC.Y2019.Days
                 {
                     foreach (var keyEntry in paths[currentState.Replicants[i]])
                     {
-                        // More internet-inspired optimalisation, comparing ints is faster than strings/objects, transforming my key name to an int
+                        // More internet-inspired optimalisation, comparing ints is faster than strings/objects, transforming the key name to an int
                         var keyInteger = (int)Math.Pow(2, keyEntry.Name - 'a');
                         if ((currentState.Keys & keyInteger) == keyInteger || (keyEntry.Obstacles & currentState.Keys) != keyEntry.Obstacles) { continue; }
 
