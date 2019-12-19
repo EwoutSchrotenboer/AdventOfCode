@@ -19,7 +19,7 @@ namespace AoC.Runner
         private static void ExecuteYears()
         {
             // ExecuteYear(2018);
-            ExecuteYear(2019, 18);
+            ExecuteYear(2019, 19);
         }
 
         private static void ExecuteYear(int year, int maxDays = 25)
