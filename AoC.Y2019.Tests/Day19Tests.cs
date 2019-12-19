@@ -8,38 +8,32 @@ namespace AoC.Y2019.Tests.Days
     [TestClass]
     public class Day19Tests
     {
-        private List<string> input = new List<string>()
-        {
-        };
-
         [TestMethod]
-        public void PartOneTest()
+        public void PartOne()
         {
             // Arrange
             var target = new Day19();
 
             // Act
-
             var result = target.Debug(Part.One);
 
             // Assert
-
             Assert.IsNotNull(result);
+            Assert.AreEqual(194, result);
         }
 
         [TestMethod]
-        public void PartTwoTest()
+        public void PartTwo()
         {
             // Arrange
             var target = new Day19();
 
             // Act
-
             var result = target.Debug(Part.Two);
 
             // Assert
-
             Assert.IsNotNull(result);
+            Assert.AreEqual(10110555, result);
         }
     }
 }
