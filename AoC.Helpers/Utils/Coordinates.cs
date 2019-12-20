@@ -49,13 +49,17 @@ namespace AoC.Helpers.Utils
                 _ => throw new Exception("Could not determine direction.")
             };
 
-        // Todo, refactor all methods to AoCPoint, for easier extensibility.
         public static AoCPoint Up(this AoCPoint point) => new AoCPoint(point.X, point.Y - 1);
-
         public static AoCPoint Left(this AoCPoint point) => new AoCPoint(point.X - 1, point.Y);
-
         public static AoCPoint Right(this AoCPoint point) => new AoCPoint(point.X + 1, point.Y);
-
         public static AoCPoint Down(this AoCPoint point) => new AoCPoint(point.X, point.Y + 1);
+
+        public static IEnumerable<AoCPoint> Adjacent(this AoCPoint point)
+        {
+            yield return point.Up();
+            yield return point.Right();
+            yield return point.Down();
+            yield return point.Left();
+        }
     }
 }
