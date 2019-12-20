@@ -37,8 +37,7 @@ namespace AoC.Y2019.Days
             var values = ParseInput(inputLines);
             var layers = GetLayers(values, width, height);
             var imageLayer = GetImage(layers, width, height);
-            PrintImage(imageLayer, width, height);
-            return "Image output";
+            return PrintImage(imageLayer, width, height, false);
         }
 
         private static List<List<int>> GetLayersData(List<int> values, int splitSize)
@@ -53,25 +52,42 @@ namespace AoC.Y2019.Days
             return layers;
         }
 
-        private void PrintImage(char[,] imageData, int width, int height)
+        private string PrintImage(char[,] imageData, int width, int height, bool print)
         {
             var imageLines = new List<string>();
+
 
             for (int i = 0; i < height; i++)
             {
                 var sb = new StringBuilder();
                 for (int j = 0; j < width; j++)
                 {
-                    sb.Append(imageData[i, j]);
+                    if (print)
+                    {
+                        sb.Append(imageData[i, j]);
+                    }
+                    else
+                    {
+                        sb.Append(imageData[i, j] == ' ' ? "0" : "1");
+                    }
                 }
 
                 imageLines.Add(sb.ToString());
             }
 
-            Console.WriteLine("Y2019 Day 8 Part Two visual:");
-            foreach (var imageLine in imageLines)
+            if (print)
             {
-                Console.WriteLine(imageLine);
+                Console.WriteLine("Y2019 Day 8 Part Two visual:");
+                foreach (var imageLine in imageLines)
+                {
+                    Console.WriteLine(imageLine);
+                }
+
+                return "Image output";
+            }
+            else
+            {
+                return Letters.ParseLetters(imageLines);
             }
         }
 

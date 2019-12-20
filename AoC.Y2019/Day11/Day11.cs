@@ -30,9 +30,7 @@ namespace AoC.Y2019.Days
         {
             var program = ParseInput(inputLines);
             var paintedHull = Paint(program, 1);
-            PrintHull(paintedHull);
-
-            return "Image output";
+            return PrintHull(paintedHull, false);
         }
 
         private static Dictionary<Point, int> Paint(string program, int startColor)
@@ -55,7 +53,7 @@ namespace AoC.Y2019.Days
             return paintedHull;
         }
 
-        private void PrintHull(Dictionary<Point, int> paintedHull)
+        private string PrintHull(Dictionary<Point, int> paintedHull, bool print)
         {
             var (minPos, maxPos) = paintedHull.Keys.GetDimensions();
 
@@ -64,17 +62,34 @@ namespace AoC.Y2019.Days
             for (int yPos = minPos.Y; yPos <= maxPos.Y; yPos++)
             {
                 var sb = new StringBuilder();
-                for (int xPos = minPos.X; xPos <= maxPos.X; xPos++)
+                for (int xPos = minPos.X + 1; xPos <= maxPos.X; xPos++)
                 {
                     var pos = new Point(xPos, yPos);
-                    sb.Append(paintedHull.ContainsKey(pos) ? paintedHull[pos] == 0 ? ' ' : '█' : ' ');
+
+                    if (print)
+                    {
+                        sb.Append(paintedHull.ContainsKey(pos) ? paintedHull[pos] == 0 ? ' ' : '█' : ' ');
+                    }
+                    else
+                    {
+                        sb.Append(paintedHull.ContainsKey(pos) ? paintedHull[pos] : 0);
+                    }
                 }
 
                 hullLines.Add(sb.ToString());
             }
 
-            Console.WriteLine("Y2019 Day 11 Part Two visual:");
-            foreach (var line in hullLines) { Console.WriteLine(line); }
+            if (print)
+            {
+                Console.WriteLine("Y2019 Day 11 Part Two visual:");
+                foreach (var line in hullLines) { Console.WriteLine(line); }
+                return "printed hull";
+            }
+            else
+            {
+                return Letters.ParseLetters(hullLines);
+            }
+
         }
 
         private static string ParseInput(IEnumerable<string> inputLines) => inputLines.Single();
