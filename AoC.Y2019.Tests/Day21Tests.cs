@@ -13,7 +13,7 @@ namespace AoC.Y2019.Tests.Days
             };
 
         [TestMethod]
-        public void PartOneTest()
+        public void PartOne()
         {
             // Arrange
             var target = new Day21();
@@ -23,10 +23,11 @@ namespace AoC.Y2019.Tests.Days
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual(19359996, result);
         }
 
         [TestMethod]
-        public void PartTwoTest()
+        public void PartTwo()
         {
             // Arrange
             var target = new Day21();
@@ -36,6 +37,7 @@ namespace AoC.Y2019.Tests.Days
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual(1143330711, result);
         }
     }
 }

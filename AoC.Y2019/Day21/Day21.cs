@@ -1,5 +1,6 @@
 ﻿using AoC.Helpers.Chronal;
 using AoC.Helpers.Days;
+using AoC.Helpers.IntComputer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,14 +17,55 @@ namespace AoC.Y2019.Days
         {
         }
 
-        protected override IConvertible PartOne()
+        protected override IConvertible PartOne() => RunSpringDroid(inputLines.First(), false);
+
+        protected override IConvertible PartTwo() => RunSpringDroid(inputLines.First(), true);
+
+        private static int RunSpringDroid(string program, bool second)
         {
-            throw new NotImplementedException();
+            var springdroid = new Computer(program);
+            springdroid.Run();
+
+            var springProgram = CreateSpringProgram(second);
+            var (_, outputs) = springdroid.Resume(springProgram);
+
+            return (int)outputs.Last();
         }
 
-        protected override IConvertible PartTwo()
+        private static int[] CreateSpringProgram(bool second)
         {
-            throw new NotImplementedException();
+            var program = new List<string>();
+
+            // If B or C are not hull, but D is: Jump.
+            program.Add(Not("B", Jump)); // !B
+            program.Add(Not("C", Temp)); // !C
+            program.Add(Or(Temp, Jump)); // !B || !C
+            program.Add(And("D", Jump)); // (!B || !C) && D
+
+            if (second)
+            {
+                // And if E or H are hull, jump
+                program.Add(Not("E", Temp)); // !E
+                program.Add(Not(Temp, Temp)); // !!E
+                program.Add(Or("H", Temp)); // !!E || H == E || H
+                program.Add(And(Temp, Jump));  // (!B || !C) && D && (E || H)
+            }
+
+            // If A is not hull, jump
+            program.Add(Not("A", Temp)); // !A
+            program.Add(Or(Temp, Jump)); // !A || (!B || !C) && D && (E || H) - Where && (E || H) is for part 2.
+
+            program.Add(Go(second));
+            return AsciiToIntConverter(program);
         }
+
+        private static int[] AsciiToIntConverter(List<string> input) => $"{string.Join("\n", input)}\n".Select(c => (int)c).ToArray();
+        private static string Not(string a, string b) => Instruction("NOT", a, b);
+        private static string And(string a, string b) => Instruction("AND", a, b);
+        private static string Or(string a, string b) => Instruction("OR", a, b);
+        private static string Instruction(string instruction, string a, string b) => $"{instruction} {a} {b}".ToUpper();
+        private static string Go(bool second) => second ? "RUN" : "WALK";
+        private const string Jump = "J";
+        private const string Temp = "T";
     }
 }
