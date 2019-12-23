@@ -8,9 +8,6 @@ namespace AoC.Y2019.Tests.Days
     [TestClass]
     public class Day22Tests
     {
-        private List<string> input = new List<string>()
-        {
-        };
 
         [TestMethod]
         public void PartOneTest()
@@ -25,6 +22,7 @@ namespace AoC.Y2019.Tests.Days
             // Assert
 
             Assert.IsNotNull(result);
+            Assert.AreEqual(1234, result);
         }
 
         [TestMethod]
@@ -38,8 +36,8 @@ namespace AoC.Y2019.Tests.Days
             var result = target.Debug(Part.Two);
 
             // Assert
-
             Assert.IsNotNull(result);
+            Assert.AreEqual(7757787935983, result);
         }
     }
 }
