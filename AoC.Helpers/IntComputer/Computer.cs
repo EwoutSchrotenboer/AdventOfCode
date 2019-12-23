@@ -13,6 +13,8 @@ namespace AoC.Helpers.IntComputer
 
         private Queue<long> inputQueue;
 
+        private Queue<long> outputQueue = new Queue<long>();
+
         private long[] memory = Array.Empty<long>();
 
         private long instructionPointer = 0;
@@ -32,6 +34,22 @@ namespace AoC.Helpers.IntComputer
         }
 
         public void SetAddress(long address, long value) => memory[address] = value;
+
+        public void AddInput(int input) => AddInput((long)input);
+        public void AddInput(long input) => inputQueue.Enqueue(input);
+
+        public void AddInputs(IEnumerable<int> inputs) => AddInputs(inputs.Select(i => (long)i));
+        public void AddInputs(IEnumerable<long> inputs) {
+            foreach (var input in inputs)
+            {
+                AddInput(input);
+            }
+        }
+
+        public bool AnyInputs() => inputQueue.Any();
+
+        public long NextOutput() => outputQueue.Dequeue();
+        public bool AnyOutputs() => outputQueue.Any();
         public void ClearOutputs() => Outputs.Clear();
 
         public (List<State> states, List<long> outputs) Resume(int input) => Resume((long)input);
@@ -65,7 +83,7 @@ namespace AoC.Helpers.IntComputer
 
                 if (resp.Value != null)
                 {
-                    Outputs.Add(resp.Value.Value);
+                    outputQueue.Enqueue(resp.Value.Value);
                 }
 
                 memory = resp.Memory;
@@ -74,7 +92,7 @@ namespace AoC.Helpers.IntComputer
             }
 
             // return last state.
-            return (States, Outputs);
+            return (States, outputQueue.ToList());
         }
 
         private Response Next(long[] memory, long ip, long rb)

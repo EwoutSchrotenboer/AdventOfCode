@@ -19,12 +19,11 @@ namespace AoC.Y2019.Tests.Days
             var target = new Day23();
 
             // Act
-
             var result = target.Debug(Part.One);
 
             // Assert
-
             Assert.IsNotNull(result);
+            Assert.AreEqual((long)21160, result);
         }
 
         [TestMethod]
@@ -34,12 +33,11 @@ namespace AoC.Y2019.Tests.Days
             var target = new Day23();
 
             // Act
-
             var result = target.Debug(Part.Two);
 
             // Assert
-
             Assert.IsNotNull(result);
+            Assert.AreEqual((long)14327, result);
         }
     }
 }
