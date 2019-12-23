@@ -24,6 +24,8 @@ namespace AoC.Y2019.Days
 
         protected override IConvertible PartOne()
         {
+            storage.Clear();
+            reactions.Clear();
             ParseInput(inputLines);
             storage.Add(Ore, 0);
             CreateReagent(Fuel, 1);
@@ -33,6 +35,8 @@ namespace AoC.Y2019.Days
 
         protected override IConvertible PartTwo()
         {
+            storage.Clear();
+            reactions.Clear();
             ParseInput(inputLines);
             storage.Add(Ore, OreCount);
 

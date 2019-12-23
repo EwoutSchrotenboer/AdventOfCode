@@ -10,12 +10,12 @@ namespace AoC.Y2019.Days
 {
     public class Day18 : BaseDay
     {
-        private readonly HashSet<VaultState> states = new HashSet<VaultState>();
-        private readonly Dictionary<AoCPoint, List<VaultKey>> inReach = new Dictionary<AoCPoint, List<VaultKey>>();
-        private readonly Dictionary<char, AoCPoint> keys = new Dictionary<char, AoCPoint>();
-        private readonly Dictionary<char, AoCPoint> doors = new Dictionary<char, AoCPoint>();
-        private readonly HashSet<AoCPoint> accessible = new HashSet<AoCPoint>();
-        private readonly Dictionary<AoCPoint, char> replicantPositions = new Dictionary<AoCPoint, char>();
+        private HashSet<VaultState> states;
+        private Dictionary<AoCPoint, List<VaultKey>> inReach;
+        private Dictionary<char, AoCPoint> keys;
+        private Dictionary<char, AoCPoint> doors;
+        private HashSet<AoCPoint> accessible;
+        private Dictionary<AoCPoint, char> replicantPositions;
 
         public Day18() : base(2019, 18)
         {
@@ -27,6 +27,7 @@ namespace AoC.Y2019.Days
 
         protected override IConvertible PartOne()
         {
+            Initialize();
             ParseInput(inputLines.ToList(), false);
 
             inReach[replicantPositions.Single().Key] = FindKeysInReach(replicantPositions.Single().Key);
@@ -41,6 +42,7 @@ namespace AoC.Y2019.Days
 
         protected override IConvertible PartTwo()
         {
+            Initialize();
             ParseInput(inputLines.ToList(), true);
 
             for (var i = '1'; i <= '4'; i++)
@@ -178,6 +180,17 @@ namespace AoC.Y2019.Days
             }
 
             return adjacents;
+        }
+
+        private void Initialize()
+        {
+            states = new HashSet<VaultState>();
+            inReach = new Dictionary<AoCPoint, List<VaultKey>>();
+            keys = new Dictionary<char, AoCPoint>();
+            doors = new Dictionary<char, AoCPoint>();
+            accessible = new HashSet<AoCPoint>();
+            replicantPositions = new Dictionary<AoCPoint, char>();
+
         }
 
         private void ParseInput(List<string> inputLines, bool partTwo)
