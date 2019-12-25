@@ -8,23 +8,20 @@ namespace AoC.Y2019.Tests.Days
     [TestClass]
     public class Day24Tests
     {
-        private List<string> input = new List<string>()
-        {
-        };
 
         [TestMethod]
-        public void PartOneTest()
+        [DataRow(new string[] { "....#", "#..#.", "#..##", "..#..", "#...." }, 2129920)]
+        public void PartOneTest(string[] input, long expected)
         {
             // Arrange
-            var target = new Day24();
+            var target = new Day24(input);
 
             // Act
-
             var result = target.Debug(Part.One);
 
             // Assert
-
             Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
         }
 
         [TestMethod]
@@ -40,6 +37,21 @@ namespace AoC.Y2019.Tests.Days
             // Assert
 
             Assert.IsNotNull(result);
+            Assert.AreEqual(1959, result);
+        }
+
+        [TestMethod]
+        public void PartOne()
+        {
+            // Arrange
+            var target = new Day24();
+
+            // Act
+            var result = target.Debug(Part.One);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual((long)18375063, result);
         }
     }
 }
