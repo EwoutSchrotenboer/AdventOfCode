@@ -6,6 +6,8 @@ using AoC.Helpers.Days;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using AoC.Helpers.IntComputer;
+using AoC.Helpers.Input;
 
 namespace AoC.Runner
 {
@@ -19,7 +21,8 @@ namespace AoC.Runner
         private static void ExecuteYears()
         {
             // ExecuteYear(2018);
-            ExecuteYear(2019, 23);
+            ExecuteYear(2019);
+            //PlayDay25();
         }
 
         private static void ExecuteYear(int year, int maxDays = 25)
@@ -34,6 +37,21 @@ namespace AoC.Runner
 
                 try { Console.WriteLine($"{day.ToString()} {day.Execute(Part.Two)}"); }
                 catch { }
+            }
+        }
+
+        private static void PlayDay25()
+        {
+            var program = InputParser.GetInputList(2019, 25).Single();
+            var android = new Computer(program);
+
+            while (true)
+            {
+                android.Run();
+                Console.WriteLine(android.GetAsciiOutputs());
+
+                var command = Console.ReadLine();
+                android.AddAsciiCommand(command);
             }
         }
 

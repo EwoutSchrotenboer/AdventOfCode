@@ -23,6 +23,7 @@ namespace AoC.Y2019.Tests.Days
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual("536904736", result);
         }
 
         [TestMethod]

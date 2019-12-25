@@ -27,12 +27,14 @@ namespace AoC.Y2019.Days
             springdroid.Run();
 
             var springProgram = CreateSpringProgram(second);
-            var (_, outputs) = springdroid.Resume(springProgram);
+            springdroid.AddAsciiCommands(springProgram);
+
+            var (_, outputs) = springdroid.Run();
 
             return (int)outputs.Last();
         }
 
-        private static int[] CreateSpringProgram(bool second)
+        private static List<string> CreateSpringProgram(bool second)
         {
             var program = new List<string>();
 
@@ -56,10 +58,10 @@ namespace AoC.Y2019.Days
             program.Add(Or(Temp, Jump)); // !A || (!B || !C) && D && (E || H) - Where && (E || H) is for part 2.
 
             program.Add(Go(second));
-            return AsciiToIntConverter(program);
+            return program;
         }
 
-        private static int[] AsciiToIntConverter(List<string> input) => $"{string.Join("\n", input)}\n".Select(c => (int)c).ToArray();
+        
         private static string Not(string a, string b) => Instruction("NOT", a, b);
         private static string And(string a, string b) => Instruction("AND", a, b);
         private static string Or(string a, string b) => Instruction("OR", a, b);

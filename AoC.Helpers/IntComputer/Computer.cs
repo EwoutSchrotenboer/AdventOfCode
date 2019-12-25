@@ -46,6 +46,21 @@ namespace AoC.Helpers.IntComputer
             }
         }
 
+        public string GetAsciiOutputs()
+        {
+            var sb = new StringBuilder();
+
+            while(outputQueue.Any())
+            {
+                sb.Append((char)outputQueue.Dequeue());
+            }
+
+            return sb.ToString();
+        }
+
+        public void AddAsciiCommands(IEnumerable<string> input) => AddAsciiCommand(string.Join("\n", input));
+        public void AddAsciiCommand(string input) => AddInputs($"{input}\n".Select(c => (int)c).ToArray());
+
         public bool AnyInputs() => inputQueue.Any();
 
         public long NextOutput() => outputQueue.Dequeue();
