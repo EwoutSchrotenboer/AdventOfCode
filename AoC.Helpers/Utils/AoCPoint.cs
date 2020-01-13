@@ -6,6 +6,8 @@ namespace AoC.Helpers.Utils
 {
     public class AoCPoint : IEquatable<AoCPoint>
     {
+        public static AoCPoint Origin() => new AoCPoint(0, 0);
+
         public int X { get; } = -1;
         public int Y { get; } = -1;
 

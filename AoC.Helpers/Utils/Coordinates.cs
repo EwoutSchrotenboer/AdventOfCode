@@ -61,5 +61,15 @@ namespace AoC.Helpers.Utils
             yield return point.Down();
             yield return point.Left();
         }
+
+        public static AoCPoint MoveTo(this AoCPoint current, Direction direction) =>
+          direction switch
+          {
+              Direction.Up => current.Up(),
+              Direction.Left => current.Left(),
+              Direction.Down => current.Down(),
+              Direction.Right => current.Right(),
+              _ => throw new Exception("Invalid direction")
+          };
     }
 }
