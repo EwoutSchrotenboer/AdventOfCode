@@ -20,9 +20,12 @@ namespace AoC.Runner
 
         private static void ExecuteYears()
         {
+            // ExecuteYear(2015);
+            // ExecuteYear(2016);
+            // ExecuteYear(2017);
             // ExecuteYear(2018);
             ExecuteYear(2019);
-            //PlayDay25();
+            //Play2019Day25();
         }
 
         private static void ExecuteYear(int year, int maxDays = 25)
@@ -40,7 +43,7 @@ namespace AoC.Runner
             }
         }
 
-        private static void PlayDay25()
+        private static void Play2019Day25()
         {
             var program = InputParser.GetInputList(2019, 25).Single();
             var android = new Computer(program);

@@ -7,6 +7,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AoC.Helpers\AoC.Helpers.csproj" />
+    <ProjectReference Include="..\AoC.Y2015\AoC.Y2015.csproj" />
+    <ProjectReference Include="..\AoC.Y2016\AoC.Y2016.csproj" />
+    <ProjectReference Include="..\AoC.Y2017\AoC.Y2017.csproj" />
     <ProjectReference Include="..\AoC.Y2018\AoC.Y2018.csproj" />
     <ProjectReference Include="..\AoC.Y2019\AoC.Y2019.csproj" />
   </ItemGroup>
