@@ -1,6 +1,7 @@
 ﻿using AoC.Helpers.Days;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AoC.Y2015.Days
 {
@@ -14,8 +15,29 @@ namespace AoC.Y2015.Days
         {
         }
 
-        protected override IConvertible PartOne() => throw new NotImplementedException();
+        protected override IConvertible PartOne()
+        {
+            var input = inputLines.First();
 
-        protected override IConvertible PartTwo() => throw new NotImplementedException();
+            return input.Count(i => i == '(') - input.Count(i => i == ')');
+        }
+
+        protected override IConvertible PartTwo()
+        {
+            var input = inputLines.First();
+            var floor = 0;
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                floor += input[i] == '(' ? 1 : -1;
+
+                if (floor == -1)
+                {
+                    return i + 1;
+                }
+            }
+
+            return -1;
+        }
     }
 }
