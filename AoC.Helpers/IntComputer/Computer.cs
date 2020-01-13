@@ -11,9 +11,9 @@ namespace AoC.Helpers.IntComputer
         public List<long> Outputs { get; private set; } = new List<long>();
         public bool Finished { get; set; } = false;
 
-        private Queue<long> inputQueue;
+        private readonly Queue<long> inputQueue = new Queue<long>();
 
-        private Queue<long> outputQueue = new Queue<long>();
+        private readonly Queue<long> outputQueue = new Queue<long>();
 
         private long[] memory = Array.Empty<long>();
 
