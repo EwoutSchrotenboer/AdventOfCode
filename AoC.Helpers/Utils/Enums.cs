@@ -57,4 +57,11 @@ namespace AoC.Helpers.Utils
         Ball,
         Score
     }
+
+    public enum Switch
+    {
+        On,
+        Off,
+        Toggle
+    }
 }
