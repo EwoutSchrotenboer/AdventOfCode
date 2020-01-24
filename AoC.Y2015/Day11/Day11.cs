@@ -39,7 +39,7 @@ namespace AoC.Y2015.Days
                 validPass = ValidPassword(nextPass);
             }
 
-            return nextPass.ToString();
+            return new string(nextPass);
         }
 
         private static char[] IncreasePassword(char[] nextPass)
@@ -87,7 +87,7 @@ namespace AoC.Y2015.Days
                     }
                 }
 
-                if (!increasingStraight && password[i] < password.Length - 2)
+                if (!increasingStraight && i < password.Length - 2)
                 {
                     var f = password[i];
                     var s = password[i + 1];
