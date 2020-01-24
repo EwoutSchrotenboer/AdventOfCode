@@ -8,7 +8,37 @@ namespace AoC.Y2015.Tests.Days
     public class Day14Tests
     {
         [TestMethod]
-        public void PartOneTest()
+        [DataRow(new string[] { "Comet can fly 14 km/s for 10 seconds, but then must rest for 127 seconds.", "Dancer can fly 16 km/s for 11 seconds, but then must rest for 162 seconds." }, 1120)]
+        public void PartOneTest(string[] input, int expected)
+        {
+            // Arrange
+            var target = new Day14(input);
+
+            // Act
+            var result = target.Debug(Part.One);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        [DataRow(new string[] { "Comet can fly 14 km/s for 10 seconds, but then must rest for 127 seconds.", "Dancer can fly 16 km/s for 11 seconds, but then must rest for 162 seconds." }, 688)]
+        public void PartTwoTest(string[] input, int expected)
+        {
+            // Arrange
+            var target = new Day14(input);
+
+            // Act
+            var result = target.Debug(Part.Two);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void PartOne()
         {
             // Arrange
             var target = new Day14();
@@ -18,10 +48,11 @@ namespace AoC.Y2015.Tests.Days
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual(2655, result);
         }
 
         [TestMethod]
-        public void PartTwoTest()
+        public void PartTwo()
         {
             // Arrange
             var target = new Day14();
@@ -31,6 +62,7 @@ namespace AoC.Y2015.Tests.Days
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual(1059, result);
         }
     }
 }
