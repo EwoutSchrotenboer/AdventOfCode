@@ -54,7 +54,7 @@ namespace AoC.Y2015.Tests.Days
             var target = new Day12();
 
             // Act
-            var result = target.Debug(Part.Two);
+            var result = target.Debug(Part.One);
 
             // Assert
             Assert.IsNotNull(result);
