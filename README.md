@@ -13,7 +13,7 @@ I had a lot of fun solving the puzzles, and building a simple VM was great. The 
 
 Day 22 was less fun, as it was too 'mathy' for my tastes. But with the help of some internet users who explained the problem and the math involved, I finally retrieved my stars.
 
-I've spent some time making the solutions generic, but day 25 is tailored to my own input. However, adjusting Program.cs in the CLI-project, it is possible to play the game for yourself!
+I've spent some time making the solutions generic, but day 25 is tailored to my own input. However, by adjusting Program.cs in the CLI-project it is possible to play the game for yourself!
 
 Next year, I'll try to start on day 1, as I had some catching up to do.
 
