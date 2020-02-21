@@ -18,6 +18,7 @@ namespace AoC.Y2015.Tests.Days
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual(953, result);
         }
 
         [TestMethod]
@@ -31,6 +32,7 @@ namespace AoC.Y2015.Tests.Days
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual(1289, result);
         }
     }
 }

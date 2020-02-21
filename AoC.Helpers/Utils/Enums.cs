@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AoC.Helpers.Utils
+﻿namespace AoC.Helpers.Utils
 {
+    public enum Direction
+    {
+        Up,
+        Left,
+        Down,
+        Right
+    }
+
     public enum EventType
     {
         BeginsShift,
@@ -26,6 +28,15 @@ namespace AoC.Helpers.Utils
         Two = 2
     }
 
+    public enum Spell
+    {
+        MagicMissile,
+        Drain,
+        Shield,
+        Poison,
+        Recharge
+    }
+
     public enum StepStatus
     {
         NotReady,
@@ -34,18 +45,11 @@ namespace AoC.Helpers.Utils
         Done
     }
 
-    public enum Direction
+    public enum Switch
     {
-        Up,
-        Left,
-        Down,
-        Right
-    }
-
-    public enum Turn
-    {
-        Left,
-        Right
+        On,
+        Off,
+        Toggle
     }
 
     public enum TileType
@@ -58,10 +62,9 @@ namespace AoC.Helpers.Utils
         Score
     }
 
-    public enum Switch
+    public enum Turn
     {
-        On,
-        Off,
-        Toggle
+        Left,
+        Right
     }
 }
