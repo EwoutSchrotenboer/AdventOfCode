@@ -8,7 +8,7 @@ namespace AoC.Y2015.Tests.Days
     public class Day22Tests
     {
         [TestMethod]
-        public void PartOneTest()
+        public void PartOne()
         {
             // Arrange
             var target = new Day22();
@@ -22,7 +22,7 @@ namespace AoC.Y2015.Tests.Days
         }
 
         [TestMethod]
-        public void PartTwoTest()
+        public void PartTwo()
         {
             // Arrange
             var target = new Day22();
