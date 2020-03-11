@@ -1,6 +1,8 @@
-﻿using AoC.Helpers.Days;
+﻿using AoC.Helpers.Assembunny;
+using AoC.Helpers.Days;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AoC.Y2016.Days
 {
@@ -14,8 +16,20 @@ namespace AoC.Y2016.Days
         {
         }
 
-        protected override IConvertible PartOne() => throw new NotImplementedException();
+        protected override IConvertible PartOne()
+        {
+            var input = 1;
 
-        protected override IConvertible PartTwo() => throw new NotImplementedException();
+            while (true)
+            {
+                var val = BunnyVM.RunProgram(ParseInput(inputLines), (0, input), false);
+                if (val != -1) { return val; }
+                input++;
+            }
+        }
+
+        protected override IConvertible PartTwo() => "Merry Christmas!";
+
+        private static List<BunnyInstruction> ParseInput(IEnumerable<string> inputLines) => inputLines.Select(i => new BunnyInstruction(i)).ToList();
     }
 }

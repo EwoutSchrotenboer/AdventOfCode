@@ -8,6 +8,7 @@ namespace AoC.Helpers.Assembunny
         public static int RunProgram(List<BunnyInstruction> instructions, (int? register, int? value) input, bool optimize)
         {
             var registers = new int[] { 0, 0, 0, 0 };
+            var output = new List<int>();
 
             if (input.register != null)
             {
@@ -87,6 +88,20 @@ namespace AoC.Helpers.Assembunny
                             var target = instructions[targetIndex];
                             target.ToggleInstruction();
                         }
+                        break;
+                    case "out":
+                        var value = (instruction.AIsReg ? registers[instruction.A] : instruction.A);
+
+                        if ((value == 1 || value == 0) && (output.Count() == 0 || output.Last() != value))
+                        {
+                            if (output.Count() > 10_000) { return input.value.Value; }
+                            output.Add(value);
+                        }
+                        else
+                        {
+                            return -1;
+                        }
+
                         break;
                 }
 

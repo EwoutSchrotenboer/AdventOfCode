@@ -18,6 +18,7 @@ namespace AoC.Y2016.Tests.Days
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual(182, result);
         }
 
         [TestMethod]
@@ -31,6 +32,7 @@ namespace AoC.Y2016.Tests.Days
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual("Merry Christmas!", result);
         }
     }
 }
