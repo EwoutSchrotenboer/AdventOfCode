@@ -19,6 +19,8 @@ namespace AoC.Helpers.Utils
             Y = y;
         }
 
+        public (int, int) GetCoords() => (X, Y);
+
         public bool Equals(AoCPoint other)
         {
             if (ReferenceEquals(null, other)) return false;
