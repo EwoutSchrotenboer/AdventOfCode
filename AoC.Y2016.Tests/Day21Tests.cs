@@ -19,6 +19,7 @@ namespace AoC.Y2016.Tests.Days
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual("dbfgaehc", result);
         }
 
         [TestMethod]
@@ -32,6 +33,7 @@ namespace AoC.Y2016.Tests.Days
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual("aghfcdeb", result);
         }
     }
 }
