@@ -8,20 +8,36 @@ namespace AoC.Y2016.Tests.Days
     public class Day24Tests
     {
         [TestMethod]
-        public void PartOneTest()
+        [DataRow(new string[] { "###########", "#0.1.....2#", "#.#######.#", "#4.......3#", "###########" }, 14)]
+        public void PartOneTest(string[] input, int expected)
         {
             // Arrange
-            var target = new Day24();
+            var target = new Day24(input);
 
             // Act
             var result = target.Debug(Part.One);
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
         }
 
         [TestMethod]
-        public void PartTwoTest()
+        public void PartOne()
+        {
+            // Arrange
+            var target = new Day24();
+
+            // act
+            var result = target.Debug(Part.One);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(518, result);
+        }
+
+        [TestMethod]
+        public void PartTwo()
         {
             // Arrange
             var target = new Day24();
@@ -31,6 +47,7 @@ namespace AoC.Y2016.Tests.Days
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual(716, result);
         }
     }
 }
