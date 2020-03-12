@@ -8,7 +8,22 @@ namespace AoC.Y2017.Tests.Days
     public class Day05Tests
     {
         [TestMethod]
-        public void PartOneTest()
+        [DataRow(new string[] { "0", "3", "0", "1", "-3" }, 5)]
+        public void PartOneTest(string[] input, int expected)
+        {
+            // Arrange
+            var target = new Day05(input);
+
+            // Act
+            var result = target.Debug(Part.One);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void PartOne()
         {
             // Arrange
             var target = new Day05();
@@ -18,10 +33,26 @@ namespace AoC.Y2017.Tests.Days
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual(359348, result);
         }
 
         [TestMethod]
-        public void PartTwoTest()
+        [DataRow(new string[] { "0", "3", "0", "1", "-3" }, 10)]
+        public void PartTwoTest(string[] input, int expected)
+        {
+            // Arrange
+            var target = new Day05(input);
+
+            // Act
+            var result = target.Debug(Part.Two);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void PartTwo()
         {
             // Arrange
             var target = new Day05();
@@ -31,6 +62,7 @@ namespace AoC.Y2017.Tests.Days
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual(27688760, result);
         }
     }
 }
