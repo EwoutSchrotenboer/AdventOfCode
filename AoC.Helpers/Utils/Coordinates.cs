@@ -62,6 +62,18 @@ namespace AoC.Helpers.Utils
             yield return point.Left();
         }
 
+        public static IEnumerable<AoCPoint> Adjacent(this AoCPoint point, bool diagonal)
+        {
+            if (diagonal) { yield return point.Up().Left(); }
+            yield return point.Up();
+            if (diagonal) { yield return point.Up().Right(); }
+            yield return point.Right();
+            if (diagonal) { yield return point.Down().Right(); }
+            yield return point.Down();
+            if (diagonal) { yield return point.Down().Left(); }
+            yield return point.Left();
+        }
+
         public static AoCPoint MoveTo(this AoCPoint current, Direction direction) =>
           direction switch
           {
