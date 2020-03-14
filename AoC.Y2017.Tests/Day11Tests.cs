@@ -8,7 +8,25 @@ namespace AoC.Y2017.Tests.Days
     public class Day11Tests
     {
         [TestMethod]
-        public void PartOneTest()
+        [DataRow("ne,ne,ne", 3)]
+        [DataRow("ne,ne,sw,sw", 0)]
+        [DataRow("ne,ne,s,s", 2)]
+        [DataRow("se,sw,se,sw,sw", 3)]
+        public void PartOneTest(string input, int expected)
+        {
+            // Arrange
+            var target = new Day11(new string[] { input });
+
+            // Act
+            var result = target.Debug(Part.One);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void PartOne()
         {
             // Arrange
             var target = new Day11();
@@ -21,7 +39,7 @@ namespace AoC.Y2017.Tests.Days
         }
 
         [TestMethod]
-        public void PartTwoTest()
+        public void PartTwo()
         {
             // Arrange
             var target = new Day11();
