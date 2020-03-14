@@ -109,5 +109,20 @@ namespace AoC.Helpers.Utils
 
             Array.Copy(temp, array, temp.Length);
         }
+
+        public static void ReversePartial<T>(this T[] array, int startIndex, int endIndex)
+        {
+            for (int i = 0; i < (endIndex - startIndex + 1) / 2; i++)
+            {
+                Swap(array, (startIndex + i) % array.Length, (endIndex - i) % array.Length);
+            }
+        }
+
+        public static void Swap<T>(this T[] array, int first, int second)
+        {
+            var tmp = array[first];
+            array[first] = array[second];
+            array[second] = tmp;
+        }
     }
 }
