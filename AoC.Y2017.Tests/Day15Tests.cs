@@ -8,7 +8,37 @@ namespace AoC.Y2017.Tests.Days
     public class Day15Tests
     {
         [TestMethod]
-        public void PartOneTest()
+        [DataRow(new string[] { "Generator A starts with 65", "Generator B starts with 8921" }, 588)]
+        public void PartOneTest(string[] input, int expected)
+        {
+            // Arrange
+            var target = new Day15(input);
+
+            // Act
+            var result = target.Debug(Part.One);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        [DataRow(new string[] { "Generator A starts with 65", "Generator B starts with 8921" }, 309)]
+        public void PartTwoTest(string[] input, int expected)
+        {
+            // Arrange
+            var target = new Day15(input);
+
+            // Act
+            var result = target.Debug(Part.Two);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void PartOne()
         {
             // Arrange
             var target = new Day15();
@@ -18,10 +48,11 @@ namespace AoC.Y2017.Tests.Days
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual(612, result);
         }
 
         [TestMethod]
-        public void PartTwoTest()
+        public void PartTwo()
         {
             // Arrange
             var target = new Day15();
@@ -31,6 +62,7 @@ namespace AoC.Y2017.Tests.Days
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual(285, result);
         }
     }
 }
