@@ -34,7 +34,7 @@ namespace AoC.Y2017.Days
             };
 
             // Programs are in the same order after 30 cycles, so we can take "times % 30"-cycles to define the state at "times"
-            // Note: this might differ with other inputs. 
+            // Note: this might differ for other inputs. 
             var shortenedTime = times % 30;
 
             for (int i = 0; i < shortenedTime; i++)
