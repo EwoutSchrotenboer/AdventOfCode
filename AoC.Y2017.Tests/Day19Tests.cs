@@ -8,7 +8,37 @@ namespace AoC.Y2017.Tests.Days
     public class Day19Tests
     {
         [TestMethod]
-        public void PartOneTest()
+        [DataRow(new string[] { "     |          ", "     |  +--+    ", "     A  |  C    ", " F---|----E|--+ ", "     |  |  |  D ", "     +B-+  +--+ " }, "ABCDEF")]
+        public void PartOneTest(string[] input, string expected)
+        {
+            // Arrange
+            var target = new Day19(input);
+
+            // Act
+            var result = target.Debug(Part.One);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        [DataRow(new string[] { "     |          ", "     |  +--+    ", "     A  |  C    ", " F---|----E|--+ ", "     |  |  |  D ", "     +B-+  +--+ " }, 38)]
+        public void PartTwoTest(string[] input, int expected)
+        {
+            // Arrange
+            var target = new Day19(input);
+
+            // Act
+            var result = target.Debug(Part.Two);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void PartOne()
         {
             // Arrange
             var target = new Day19();
@@ -18,10 +48,11 @@ namespace AoC.Y2017.Tests.Days
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual("AYRPVMEGQ", result);
         }
 
         [TestMethod]
-        public void PartTwoTest()
+        public void PartTwo()
         {
             // Arrange
             var target = new Day19();
@@ -31,6 +62,7 @@ namespace AoC.Y2017.Tests.Days
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual(16408, result);
         }
     }
 }
