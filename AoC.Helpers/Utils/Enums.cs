@@ -22,6 +22,14 @@
         NotHere
     }
 
+    public enum InfectionState
+    {
+        Clean,
+        Weakened,
+        Infected,
+        Flagged
+    }
+
     public enum Part
     {
         One = 1,
