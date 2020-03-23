@@ -9,7 +9,7 @@ namespace AoC.Y2017.Tests.Days
     public class Day21Tests
     {
         [TestMethod]
-        public void PartOneTest()
+        public void PartOne()
         {
             // Arrange
             var target = new Day21();
@@ -19,10 +19,11 @@ namespace AoC.Y2017.Tests.Days
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual(171, result);
         }
 
         [TestMethod]
-        public void PartTwoTest()
+        public void PartTwo()
         {
             // Arrange
             var target = new Day21();
@@ -32,6 +33,7 @@ namespace AoC.Y2017.Tests.Days
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual(2498142, result);
         }
     }
 }
